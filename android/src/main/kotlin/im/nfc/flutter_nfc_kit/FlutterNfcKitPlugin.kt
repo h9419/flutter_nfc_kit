@@ -25,7 +25,7 @@ import java.io.IOException
 import java.lang.reflect.InvocationTargetException
 import java.util.*
 import kotlin.concurrent.schedule
-
+import android.os.Bundle
 
 class FlutterNfcKitPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
@@ -288,7 +288,10 @@ class FlutterNfcKitPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             result.error("408", "Polling tag timeout", null)
         }
 
-        nfcAdapter.enableReaderMode(activity, { tag ->
+        var options : Bundle = Bundle()
+        options.putInt(NfcAdapter.EXTRA_READER_PRESENCE_CHECK_DELAY, 10000)
+
+        nfcAdapter!!.enableReaderMode(activity, { tag ->
             pollingTimeoutTask?.cancel()
 
             // common fields
@@ -406,7 +409,7 @@ class FlutterNfcKitPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                     "ndefCapacity" to ndefCapacity
             )).toString())
 
-        }, technologies, null)
+        }, technologies, options)
     }
 
     private class MethodResultWrapper internal constructor(result: Result) : Result {

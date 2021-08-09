@@ -1,3 +1,7 @@
+# Changes
+
+On Android, the presense check in enableReaderMode will cause problems in DESFire mutual authentication. The timeout is set to 10 seconds to prevent interruption of authentication
+
 # Flutter NFC Kit
 
 [![pub version](https://img.shields.io/pub/v/flutter_nfc_kit)](https://pub.dev/packages/flutter_nfc_kit)
